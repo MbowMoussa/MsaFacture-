@@ -1,0 +1,323 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================
+   CSS Custom Properties (Tokens)
+   ================================ */
+:root {
+  /* Backgrounds */
+  --background:    #f8fafc;
+  --surface:       #ffffff;
+  --surface-2:     #f1f5f9;
+  --foreground:    #0f172a;
+  --border:        #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Sidebar */
+  --sidebar-bg:   #ffffff;
+  --sidebar-w:    260px;
+
+  /* Header */
+  --header-h:     58px;
+
+  /* Scrollbar */
+  --scrollbar-w:  5px;
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+}
+
+/* ================================
+   Base Resets & Typography
+   ================================ */
+@layer base {
+  *, *::before, *::after {
+    @apply box-border;
+  }
+
+  html {
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 font-sans text-sm antialiased;
+    color: var(--foreground);
+    background: var(--background);
+  }
+
+  h1 { @apply text-xl sm:text-2xl font-bold text-slate-900 tracking-tight; }
+  h2 { @apply text-lg font-bold text-slate-900 tracking-tight; }
+  h3 { @apply text-base font-semibold text-slate-800; }
+  h4 { @apply text-sm font-semibold text-slate-800; }
+  h5 { @apply text-xs font-semibold text-slate-700; }
+  h6 { @apply text-[11px] font-medium text-slate-600; }
+
+  a {
+    @apply text-indigo-600 hover:text-indigo-700 transition-colors duration-150;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-w);
+    height: var(--scrollbar-w);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  /* Focus ring */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-indigo-500/30 ring-offset-1;
+  }
+
+  /* Remove autofill yellow */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #0f172a !important;
+  }
+}
+
+/* ================================
+   Component Layer
+   ================================ */
+@layer components {
+
+  /* --- Layout Shell --- */
+  .app-shell {
+    @apply flex h-screen overflow-hidden bg-slate-50;
+  }
+
+  .sidebar {
+    @apply fixed inset-y-0 left-0 z-50 flex flex-col bg-white border-r border-slate-200/80;
+    width: var(--sidebar-w);
+    transition: transform 0.2s ease, width 0.2s ease;
+  }
+
+  .main-content {
+    @apply flex flex-col flex-1 overflow-hidden;
+    margin-left: var(--sidebar-w);
+  }
+
+  .page-header {
+    @apply sticky top-0 z-40 flex items-center gap-3 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6;
+    height: var(--header-h);
+  }
+
+  .page-body {
+    @apply flex-1 overflow-y-auto p-4 sm:p-6;
+  }
+
+  /* --- Refined Cards --- */
+  .card {
+    @apply bg-white border border-slate-200/80 rounded-xl shadow-xs;
+  }
+
+  .card-header {
+    @apply px-5 py-3.5 border-b border-slate-100/90;
+  }
+
+  .card-body {
+    @apply px-5 py-4;
+  }
+
+  .card-footer {
+    @apply px-5 py-3 border-t border-slate-100 bg-slate-50/50 rounded-b-xl;
+  }
+
+  /* --- Stat Cards --- */
+  .stat-card {
+    @apply card p-4 sm:p-5 flex flex-col gap-3 hover:shadow-xs hover:border-slate-300 transition-all duration-200;
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg font-semibold transition-all duration-150 cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed text-xs;
+  }
+
+  .btn-sm   { @apply btn text-[11px] px-2.5 py-1.5 h-7; }
+  .btn-md   { @apply btn text-xs px-3.5 py-2 h-9; }
+  .btn-lg   { @apply btn text-xs px-4 py-2.5 h-10; }
+
+  .btn-primary {
+    @apply btn-md bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 shadow-xs;
+  }
+
+  .btn-secondary {
+    @apply btn-md bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 active:bg-slate-100 shadow-xs;
+  }
+
+  .btn-ghost {
+    @apply btn-md bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+  }
+
+  .btn-danger {
+    @apply btn-md bg-rose-600 text-white hover:bg-rose-700 active:bg-rose-800 shadow-xs;
+  }
+
+  .btn-success {
+    @apply btn-md bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 shadow-xs;
+  }
+
+  .btn-icon {
+    @apply inline-flex items-center justify-center rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors duration-150 cursor-pointer;
+  }
+
+  /* --- Form Inputs --- */
+  .input {
+    @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400
+           shadow-xs transition-all duration-150
+           focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/15
+           disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed;
+  }
+
+  .input-error {
+    @apply border-rose-500 focus:border-rose-500 focus:ring-rose-500/15;
+  }
+
+  .label {
+    @apply block text-xs font-semibold text-slate-700 mb-1;
+  }
+
+  .label-required::after {
+    content: " *";
+    @apply text-rose-500;
+  }
+
+  .form-group {
+    @apply flex flex-col gap-1;
+  }
+
+  .form-hint {
+    @apply text-[11px] text-slate-500;
+  }
+
+  .form-error {
+    @apply text-[11px] text-rose-600 flex items-center gap-1;
+  }
+
+  /* --- Select --- */
+  .select {
+    @apply input cursor-pointer appearance-none pr-8 text-xs;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2394a3b8'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.1rem;
+  }
+
+  /* --- Badges / Status --- */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium tracking-tight;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200/70;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-50 text-amber-700 border border-amber-200/70;
+  }
+
+  .badge-danger {
+    @apply badge bg-rose-50 text-rose-700 border border-rose-200/70;
+  }
+
+  .badge-primary {
+    @apply badge bg-indigo-50 text-indigo-700 border border-indigo-200/70;
+  }
+
+  .badge-gray {
+    @apply badge bg-slate-100 text-slate-700 border border-slate-200/70;
+  }
+
+  /* --- Table --- */
+  .table-container {
+    @apply w-full overflow-x-auto;
+  }
+
+  .table {
+    @apply w-full min-w-full border-collapse text-left;
+  }
+
+  .table thead {
+    @apply bg-slate-50/80 border-b border-slate-200/80;
+  }
+
+  .table thead th {
+    @apply px-4 py-2.5 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wider whitespace-nowrap;
+  }
+
+  .table tbody tr {
+    @apply border-b border-slate-100 hover:bg-slate-50/70 transition-colors duration-100;
+  }
+
+  .table tbody td {
+    @apply px-4 py-3 text-xs text-slate-700 whitespace-nowrap;
+  }
+
+  /* --- Navigation Items --- */
+  .nav-item {
+    @apply flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600
+           hover:bg-slate-100 hover:text-slate-900 transition-all duration-150 cursor-pointer;
+  }
+
+  .nav-item.active {
+    @apply bg-indigo-50 text-indigo-700 font-bold;
+  }
+
+  .nav-item.active svg {
+    @apply text-indigo-600;
+  }
+
+  /* --- Divider --- */
+  .divider {
+    @apply h-px bg-slate-200/80 my-3;
+  }
+
+  /* --- Page Title --- */
+  .page-title {
+    @apply text-xl sm:text-2xl font-bold text-slate-900 tracking-tight;
+  }
+
+  .page-subtitle {
+    @apply text-xs text-slate-500 mt-0.5;
+  }
+
+  /* --- Invoice Amount --- */
+  .amount-fcfa {
+    @apply font-mono font-bold text-slate-900 text-xs;
+  }
+}
+
+/* ================================
+   Utilities Layer
+   ================================ */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Scrollbar hidden */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

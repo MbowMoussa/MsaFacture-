@@ -1,0 +1,172 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: ["class"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Brand Colors — MsaFacture
+        primary: {
+          50:  "#eef2ff",
+          100: "#e0e7ff",
+          200: "#c7d2fe",
+          300: "#a5b4fc",
+          400: "#818cf8",
+          500: "#6366f1",
+          600: "#4f46e5",
+          700: "#4338ca",
+          800: "#3730a3",
+          900: "#312e81",
+          950: "#1e1b4b",
+        },
+        // Status Colors
+        success: {
+          50:  "#f0fdf4",
+          100: "#dcfce7",
+          200: "#bbf7d0",
+          300: "#86efac",
+          400: "#4ade80",
+          500: "#22c55e",
+          600: "#16a34a",
+          700: "#15803d",
+          800: "#166534",
+          900: "#14532d",
+          950: "#052e16",
+        },
+        warning: {
+          50:  "#fffbeb",
+          100: "#fef3c7",
+          200: "#fde68a",
+          300: "#fcd34d",
+          400: "#fbbf24",
+          500: "#f59e0b",
+          600: "#d97706",
+          700: "#b45309",
+          800: "#92400e",
+          900: "#78350f",
+          950: "#451a03",
+        },
+        danger: {
+          50:  "#fef2f2",
+          100: "#fee2e2",
+          200: "#fecaca",
+          300: "#fca5a5",
+          400: "#f87171",
+          500: "#ef4444",
+          600: "#dc2626",
+          700: "#b91c1c",
+          800: "#991b1b",
+          900: "#7f1d1d",
+          950: "#450a0a",
+        },
+        // Neutral Grays (Untitled UI style)
+        gray: {
+          25:  "#fcfcfd",
+          50:  "#f9fafb",
+          100: "#f2f4f7",
+          200: "#eaecf0",
+          300: "#d0d5dd",
+          400: "#98a2b3",
+          500: "#667085",
+          600: "#475467",
+          700: "#344054",
+          800: "#1d2939",
+          900: "#101828",
+          950: "#0c111d",
+        },
+        // Semantic tokens
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        border: "var(--border)",
+        surface: "var(--surface)",
+        "surface-2": "var(--surface-2)",
+      },
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+      },
+      fontSize: {
+        "xs":   ["0.75rem",  { lineHeight: "1.125rem" }],
+        "sm":   ["0.875rem", { lineHeight: "1.25rem"  }],
+        "md":   ["1rem",     { lineHeight: "1.5rem"   }],
+        "lg":   ["1.125rem", { lineHeight: "1.75rem"  }],
+        "xl":   ["1.25rem",  { lineHeight: "1.875rem" }],
+        "2xl":  ["1.5rem",   { lineHeight: "2rem"     }],
+        "3xl":  ["1.875rem", { lineHeight: "2.375rem" }],
+        "4xl":  ["2.25rem",  { lineHeight: "2.75rem"  }],
+        "5xl":  ["3rem",     { lineHeight: "3.75rem"  }],
+      },
+      boxShadow: {
+        "xs":  "0px 1px 2px rgba(16, 24, 40, 0.05)",
+        "sm":  "0px 1px 3px rgba(16, 24, 40, 0.10), 0px 1px 2px rgba(16, 24, 40, 0.06)",
+        "md":  "0px 4px 8px -2px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.06)",
+        "lg":  "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)",
+        "xl":  "0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03)",
+        "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.18)",
+        "ring-primary": "0px 0px 0px 4px rgba(99, 102, 241, 0.12)",
+        "ring-danger":  "0px 0px 0px 4px rgba(239, 68, 68, 0.12)",
+      },
+      borderRadius: {
+        "none": "0",
+        "sm":   "0.375rem",
+        "md":   "0.5rem",
+        "lg":   "0.625rem",
+        "xl":   "0.75rem",
+        "2xl":  "1rem",
+        "3xl":  "1.5rem",
+        "full": "9999px",
+      },
+      spacing: {
+        "4.5": "1.125rem",
+        "13":  "3.25rem",
+        "15":  "3.75rem",
+        "18":  "4.5rem",
+        "22":  "5.5rem",
+      },
+      keyframes: {
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(4px)" },
+          to:   { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-in-right": {
+          from: { opacity: "0", transform: "translateX(16px)" },
+          to:   { opacity: "1", transform: "translateX(0)" },
+        },
+        "slide-in-left": {
+          from: { opacity: "0", transform: "translateX(-16px)" },
+          to:   { opacity: "1", transform: "translateX(0)" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.97)" },
+          to:   { opacity: "1", transform: "scale(1)" },
+        },
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%":      { opacity: "0.6" },
+        },
+      },
+      animation: {
+        "fade-in":        "fade-in 0.2s ease-out",
+        "slide-in-right": "slide-in-right 0.2s ease-out",
+        "slide-in-left":  "slide-in-left 0.2s ease-out",
+        "scale-in":       "scale-in 0.15s ease-out",
+        "shimmer":        "shimmer 1.5s infinite",
+        "pulse-soft":     "pulse-soft 2s ease-in-out infinite",
+      },
+      transitionTimingFunction: {
+        "smooth": "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;

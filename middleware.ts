@@ -46,13 +46,23 @@ export async function middleware(request: NextRequest) {
                         request.nextUrl.pathname.startsWith("/register") ||
                         request.nextUrl.pathname.startsWith("/forgot-password");
 
+    const isApiRoute = request.nextUrl.pathname.startsWith("/api/");
+
     const isProtectedRoute = request.nextUrl.pathname.startsWith("/dashboard") ||
                              request.nextUrl.pathname.startsWith("/factures") ||
                              request.nextUrl.pathname.startsWith("/clients") ||
                              request.nextUrl.pathname.startsWith("/parametres") ||
                              request.nextUrl.pathname.startsWith("/rapports");
 
-    // Si l'utilisateur n'est pas connecté et tente d'accéder à une route protégée
+    // Si l'utilisateur n'est pas connecté et tente d'accéder à une route API
+    if (!user && isApiRoute) {
+      return NextResponse.json(
+        { error: "Non autorisé. Veuillez vous connecter." },
+        { status: 401 }
+      );
+    }
+
+    // Si l'utilisateur n'est pas connecté et tente d'accéder à une page protégée
     if (!user && isProtectedRoute) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";

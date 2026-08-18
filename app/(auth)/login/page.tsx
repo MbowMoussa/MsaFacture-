@@ -35,7 +35,15 @@ export default function LoginPage() {
       router.push("/dashboard");
       router.refresh();
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Erreur de connexion";
+      console.error("Erreur connexion:", err);
+      let message = "Erreur de connexion";
+      if (err instanceof Error) {
+        if (err.message.includes("fetch") || err.message.includes("Invalid value")) {
+          message = "Impossible de contacter le serveur d'authentification. Veuillez vérifier votre connexion ou réessayer.";
+        } else {
+          message = err.message;
+        }
+      }
       setErrorMessage(message);
       setIsLoading(false);
     }

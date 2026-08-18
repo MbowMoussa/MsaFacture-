@@ -49,7 +49,15 @@ export default function RegisterPage() {
         setIsLoading(false);
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Une erreur inattendue s'est produite.";
+      console.error("Erreur inscription:", err);
+      let message = "Une erreur inattendue s'est produite.";
+      if (err instanceof Error) {
+        if (err.message.includes("fetch") || err.message.includes("Invalid value")) {
+          message = "Impossible de contacter le serveur d'authentification. Veuillez vérifier votre connexion internet ou la configuration des clés Supabase.";
+        } else {
+          message = err.message;
+        }
+      }
       setErrorMessage(message);
       setIsLoading(false);
     }

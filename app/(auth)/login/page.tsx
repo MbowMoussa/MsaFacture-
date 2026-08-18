@@ -27,7 +27,14 @@ export default function LoginPage() {
       });
 
       if (error) {
-        setErrorMessage("Identifiants incorrects. Veuillez vérifier votre e-mail et mot de passe.");
+        const msg = error.message.toLowerCase();
+        if (msg.includes("email not confirmed")) {
+          setErrorMessage("Votre e-mail n'a pas encore été confirmé. Veuillez vérifier votre boîte mail ou désactiver la confirmation dans Supabase.");
+        } else if (msg.includes("invalid login credentials")) {
+          setErrorMessage("Mot de passe ou e-mail incorrect (ou le compte n'a pas été créé). Si c'est votre première visite, créez d'abord votre compte.");
+        } else {
+          setErrorMessage(error.message || "Identifiants incorrects.");
+        }
         setIsLoading(false);
         return;
       }
